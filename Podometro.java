@@ -28,7 +28,6 @@ public class Podometro {
     private int totalDistanciaFinSemana;
     private int tiempo;
     private int caminatasNoche;
-    
 
     /**
      * Inicializa el podómetro con la marca indicada por el parámetro.
@@ -71,7 +70,7 @@ public class Podometro {
         altura = queAltura;
         sexo = queSexo;
 
-        if (sexo == 'M') 
+        if (sexo == MUJER) 
         {
 
             longitudZancada = (Math.floor(altura * ZANCADA_MUJER)) / 100;
@@ -94,8 +93,7 @@ public class Podometro {
      *    
      *    A partir de estos parámetros el método debe realizar ciertos cálculos
      *    y  actualizará el podómetro adecuadamente  
-     *   
-     *   (leer enunciado del ejercicio)
+     * 
      */
     public void registrarCaminata(int pasos, int dia, int horaInicio,
     int horaFin) {
@@ -103,9 +101,9 @@ public class Podometro {
         double totalKilometros = (pasos * longitudZancada);
         double minutosFinal;
         double minutosInicio;
-        
+
         totalDistanciaSemana += totalKilometros;
-        minutosFinal = ((horaFin / 100) * 60) +(horaFin % 100);
+        minutosFinal = ((horaFin / 100) * 60) + (horaFin % 100);
         minutosInicio = ((horaInicio / 100) * 60) +(horaInicio % 100);
         tiempo += minutosFinal - minutosInicio;
 
@@ -188,13 +186,23 @@ public class Podometro {
             "\nDía/s con más pasos caminados: " + queDia);
 
     }
+
     /**
      *  Calcula y devuelve un String que representa el nombre del día
      *  en el que se ha caminado más pasos - "SÁBADO"   "DOMINGO" o  "LABORABLES"
      */
-    public void diaMayorNumeroPasos() {
-        
-        
+    public String diaMayorNumeroPasos() {
+
+        if (totalPasosLaborables > totalPasosSabado && totalPasosLaborables > totalPasosDomingo){
+            return "LABORABLES";
+
+        } else if (totalPasosLaborables < totalPasosSabado && totalPasosSabado > totalPasosDomingo){
+
+            return "SABADO";
+        } else {
+
+            return "DOMINGO";
+        }
     }
 
     /**
